@@ -1,0 +1,205 @@
+<div class="container">
+    <div class="panel panel-alumnos">
+        <div class="header-actions">
+            <button class="btn-primary" (click)="crearAlumno()">
+                <i class="fas fa-plus"></i> Crear Alumno
+            </button>
+            
+            <div class="search-container">
+                <input 
+                    type="text" 
+                    placeholder="Buscar alumno..." 
+                    [(ngModel)]="filtroAlumno" 
+                    (keyup)="aplicarFiltroAlumno($event)" 
+                    class="search-input"
+                />
+                <i class="fas fa-search search-icon"></i>
+            </div>
+
+            <div class="filter-container">
+                <label for="salonFilter">Por Salón:</label>
+                <select 
+                    id="salonFilter" 
+                    [(ngModel)]="filtroSalon" 
+                    (change)="aplicarFiltroSalon()" 
+                    class="select-custom"
+                >
+                    <option value="">Todos los salones</option>
+                    <option *ngFor="let salon of salones" [value]="salon.IDSalon">
+                        {{ salon.SalonNombre }}
+                    </option>
+                </select>
+            </div>
+        </div>
+
+        <div class="table-container">
+            <table mat-table [dataSource]="alumnosFiltrados" class="table-custom">
+                <ng-container matColumnDef="Matricula">
+                    <th mat-header-cell *matHeaderCellDef> Matrícula </th>
+                    <td mat-cell *matCellDef="let alumno"> {{ alumno.Matricula }} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="Nombre">
+                    <th mat-header-cell *matHeaderCellDef> Nombre </th>
+                    <td mat-cell *matCellDef="let alumno"> {{ alumno.Nombre }} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="Salon">
+                    <th mat-header-cell *matHeaderCellDef> Salón </th>
+                    <td mat-cell *matCellDef="let alumno"> {{ alumno.Salon }} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="Familia">
+                    <th mat-header-cell *matHeaderCellDef> Familia </th>
+                    <td mat-cell *matCellDef="let alumno"> {{ alumno.Familia }} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="Turno">
+                    <th mat-header-cell *matHeaderCellDef> Turno </th>
+                    <td mat-cell *matCellDef="let alumno"> {{ alumno.Turno }} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="Opciones">
+                    <th mat-header-cell *matHeaderCellDef> Acciones </th>
+                    <td mat-cell *matCellDef="let alumno">
+                        <div class="action-buttons">
+                            <button class="btn-icon" (click)="editarAlumno(alumno)">
+                                <i class="fas fa-edit"></i>
+                            </button>
+                            <button class="btn-icon" (click)="agregarFamilia(alumno)">
+                                <i class="fas fa-users"></i>
+                            </button>
+                            <button class="btn-icon" (click)="verQR(alumno.Matricula)">
+                                <i class="fa-solid fa-qrcode"></i>
+                            </button>
+                        </div>
+                    </td>
+                </ng-container>
+
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+            </table>
+        </div>
+    </div>
+
+    <div class="panel panel-form">
+        <form *ngIf="edicion" (ngSubmit)="EditarAlumno()" class="form-custom">
+            <h2 class="form-title">Editar Alumno</h2>
+            <div class="form-grid">
+                <div class="form-group">
+                    <label for="matricula">Matrícula</label>
+                    <input 
+                        type="text" 
+                        id="matricula" 
+                        name="matricula" 
+                        [(ngModel)]="alumno.Matricula" 
+                        required 
+                        class="input-custom"
+                    />
+                </div>
+                <div class="form-group">
+                    <label for="nombre">Nombre</label>
+                    <input 
+                        type="text" 
+                        id="nombre" 
+                        name="nombre" 
+                        [(ngModel)]="alumno.Nombre" 
+                        required 
+                        class="input-custom"
+                    />
+                </div>
+                <div class="form-group">
+                    <label for="salon">Salón</label>
+                    <select 
+                        id="salon" 
+                        name="salon" 
+                        [(ngModel)]="alumno.IDSalon" 
+                        required 
+                        class="select-custom"
+                    >
+                        <option *ngFor="let salon of salones" [value]="salon.IDSalon">
+                            {{ salon.SalonNombre }}
+                        </option>
+                    </select>
+                </div>
+            </div>
+            <button type="submit" class="btn-primary">Guardar Cambios</button>
+        </form>
+
+        <form *ngIf="crear" (ngSubmit)="CrearAlumno()" class="form-custom">
+            <h2 class="form-title">Crear Alumno</h2>
+            <div class="form-grid">
+                <div class="form-group">
+                    <label for="matricula">Matrícula</label>
+                    <input 
+                        type="text" 
+                        id="matricula" 
+                        name="matricula" 
+                        [(ngModel)]="alumno.Matricula" 
+                        required 
+                        class="input-custom"
+                    />
+                </div>
+                <div class="form-group">
+                    <label for="nombre">Nombre</label>
+                    <input 
+                        type="text" 
+                        id="nombre" 
+                        name="nombre" 
+                        [(ngModel)]="alumno.Nombre" 
+                        required 
+                        class="input-custom"
+                    />
+                </div>
+                <div class="form-group">
+                    <label for="salon">Salón</label>
+                    <select 
+                        id="salon" 
+                        name="salon" 
+                        [(ngModel)]="alumno.IDSalon" 
+                        required 
+                        class="select-custom"
+                    >
+                        <option *ngFor="let salon of salones" [value]="salon.IDSalon">
+                            {{ salon.SalonNombre }}
+                        </option>
+                    </select>
+                </div>
+            </div>
+            <button type="submit" class="btn-primary">Guardar</button>
+        </form>
+
+        <div *ngIf="familia">
+            <h1 class="h1">Asignar Familia</h1>
+
+            <input type="text" placeholder="Buscar familia..." [(ngModel)]="filtroFamilia" (input)="aplicarFiltro()"/>
+
+            <table mat-table [dataSource]="padresFiltrados" class="mat-elevation-z8">
+
+                <ng-container matColumnDef="Familia">
+                    <th mat-header-cell *matHeaderCellDef> Familia </th>
+                    <td mat-cell *matCellDef="let padre"> {{ padre.Familia }} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="Madre">
+                    <th mat-header-cell *matHeaderCellDef> Madre </th>
+                    <td mat-cell *matCellDef="let padre"> {{ padre.Madre }} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="Padre">
+                    <th mat-header-cell *matHeaderCellDef> Padre </th>
+                    <td mat-cell *matCellDef="let padre"> {{ padre.Padre }} </td>
+                </ng-container>
+                <ng-container matColumnDef="Opciones">
+                    <th mat-header-cell *matHeaderCellDef> Opciones </th>
+                    <td mat-cell *matCellDef="let padre">
+                        <button mat-button class="button-7" role="button" (click)="accionPadre(padre)">Asignar Familia</button>
+                    </td>
+                </ng-container>
+    
+                <tr mat-header-row *matHeaderRowDef="displayedColumnsPadres"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumnsPadres;"></tr>
+            </table>
+        </div>
+    </div>
+</div>

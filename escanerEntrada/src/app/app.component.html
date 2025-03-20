@@ -1,0 +1,35 @@
+<div>
+    <header class="inicio">
+      <div class="logo">
+        <img src="/images.png">
+      </div>
+  
+      <div class="titulo">
+        <h1>Escuela Secundaria Tecnica Nro 16</h1>
+      </div>
+    </header>
+  </div>
+  
+  <div class="container">
+    <div class="scanner">
+      <form id="barcodeForm" (ngSubmit)="enviarAsistencia()">
+        <input type="text" id="barcodeInput" name="barcode" placeholder="Escanea aquí" autofocus autocomplete="off" [(ngModel)]="matricula" class="input-style" required>
+        <button class="button-7" role="button" type="submit">Enviar Asistencia</button>
+      </form>
+    </div>
+    <div class="informacion" style="display: flex; justify-content: center; align-items: center;">
+      <div *ngIf="valido">
+        <p style="font-size: 5rem; font-weight: bold;">Asistencia Registrada</p>
+      </div>
+
+      <div *ngIf="invalido" style="display: flex; justify-content: center; align-items: center;">
+        <p style="font-size: 5rem; font-weight: bold;">Matrícula no válida</p>
+      </div>
+
+      <div *ngIf="solonumeros" style="display: flex; justify-content: center; align-items: center;">
+        <p style="font-size: 5rem; font-weight: bold;">Matrícula no válida</p>
+      </div>
+    </div>
+  </div>
+
+  

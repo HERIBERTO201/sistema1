@@ -1,0 +1,82 @@
+<div class="container">
+  <div class="box" id="ta">
+    <div class="botonnuevo"><Button mat-button class="button-7" role="button" (click)="agregarruta = true">Agreagr Ruta</Button></div>
+    <table mat-table [dataSource]="rutasCamiones" class="mat-elevation-z8">
+      <ng-container matColumnDef="IDRuta">
+        <th mat-header-cell *matHeaderCellDef> IDRuta </th>
+        <td mat-cell *matCellDef="let ruta"> {{ruta.IDRuta}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="Ruta">
+        <th mat-header-cell *matHeaderCellDef> Ruta </th>
+        <td mat-cell *matCellDef="let ruta"> {{ruta.Ruta}} </td>
+      </ng-container>
+    
+      <ng-container matColumnDef="Contrasena">
+        <th mat-header-cell *matHeaderCellDef> Contrasena </th>
+        <td mat-cell *matCellDef="let ruta"> {{ruta.Contrasena}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="activa">
+        <th mat-header-cell *matHeaderCellDef> Ruta Activa? </th>
+        <td mat-cell *matCellDef="let ruta"> 
+          {{+ruta.activa === 1 ? 'Sí' : 'No'}}
+        </td>
+      </ng-container>
+    
+      <ng-container matColumnDef="acciones">
+        <th mat-header-cell *matHeaderCellDef> Acciones </th>
+        <td mat-cell *matCellDef="let ruta">
+          <button mat-button class="button-7" role="button" (click)="editarRuta(ruta)">Modificar</button>
+        </td>
+      </ng-container>
+      <tr mat-header-row *matHeaderRowDef="['IDRuta', 'Ruta', 'Contrasena', 'activa', 'acciones']"></tr>
+      <tr mat-row *matRowDef="let row; columns: ['IDRuta', 'Ruta', 'Contrasena', 'activa', 'acciones'];"></tr>
+    </table>
+     
+  </div>
+
+  <div class="box">
+    <form *ngIf="editarruta" (ngSubmit)="guardarRuta()">
+      <h1 class="h1">Modificar Ruta</h1>
+      <div>
+        <div class="inputs">
+          <label> Nombre de Ruta: </label><input class="input" type="text" [(ngModel)]="rutaSeleccionada.Ruta" name="ruta" placeholder="Ruta" />
+          <label> Contrasena: </label><input class="input"  type="text" [(ngModel)]="rutaSeleccionada.Contrasena" name="contrasena" placeholder="Contrasena" />
+
+          <div class="radios">
+            <label> Ruta Activa: </label>
+            <input type="checkbox" [(ngModel)]="rutaSeleccionada.Activa" name="activa" />
+          </div>
+          </div>
+          
+          <button button mat-button class="button-7" role="button" type="submit">Guardar</button>
+          <button button mat-button class="button-7" role="button" type="button" (click)="editarruta = false">Cancelar</button>
+      </div>
+    </form>
+
+    <form *ngIf="agregarruta" (ngSubmit)="crearRuta()">
+      <h1 class="h1">Agregar Ruta</h1>
+      <div>
+        <div class="inputs">
+          <label> Nombre de Ruta: </label>
+          <input class="input" type="text" [(ngModel)]="rutaSeleccionada.Ruta" name="ruta" placeholder="Ruta" required />
+          
+          <label> Contraseña: </label>
+          <input class="input" type="text" [(ngModel)]="rutaSeleccionada.Contrasena" name="contrasena" placeholder="Contraseña" required />
+          
+          <div class="radios">
+            <label> Ruta Activa: </label>
+            <input type="checkbox" [(ngModel)]="rutaSeleccionada.Activa" name="activa" />
+          </div>
+        </div>
+        
+        <button mat-button class="button-7" role="button" type="submit">Guardar</button>
+        <button mat-button class="button-7" role="button" type="button" (click)="agregarruta = false">Cancelar</button>
+      </div>
+    </form>
+
+  </div> 
+  
+
+</div>

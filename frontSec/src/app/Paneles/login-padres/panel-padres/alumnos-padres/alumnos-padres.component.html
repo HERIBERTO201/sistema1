@@ -1,0 +1,37 @@
+<div class="container">
+  <h1 class="title">Alumnos de la familia</h1>
+
+  <div class="cards-container">
+    <div *ngFor="let alumno of alumnos" class="card">
+      <div class="card-content">
+        <div class="student-info">
+          <h2 class="student-name">{{alumno.Nombre}}</h2>
+          <div class="info-item">
+            <span class="label">Matrícula:</span>
+            <span class="value">{{alumno.Matricula}}</span>
+          </div>
+          <div class="info-item">
+            <span class="label">Salón:</span>
+            <span class="value">{{alumno.Salon}}</span>
+          </div>
+          <div class="info-item">
+            <span class="label">Turno:</span>
+            <span class="value">{{alumno.Turno}}</span>
+          </div>
+        </div>
+        <div class="button-group">
+          <button (click)="verQR(alumno.Matricula)" class="btn btn-primary">
+            <i class="fas fa-qr-code"></i>
+            Ver QR
+          </button>
+          <button (click)="descargarHorarioPDF(alumno.IDSalon)" class="btn btn-secondary">
+            <i class="fas fa-download"></i>
+            Descargar Horario
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+

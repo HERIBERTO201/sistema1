@@ -1,0 +1,70 @@
+.margen{
+    padding: 20px;
+    width: 70%;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-content: center;
+}
+
+.contenido{
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+.contenido > div {
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    transition: transform 0.3s ease;
+    border: 1px solid #000;
+}
+
+.contenido > div:hover {
+    transform: translateY(-5px);
+}
+
+.noticia-container {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+}
+
+.texto-container {
+    flex: 1;
+    padding-right: 20px;
+}
+
+.imagen-container {
+    width: 400px;
+    height: 300px;
+    flex-shrink: 0;
+}
+
+.contenido h2 {
+    color: #333;
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+}
+
+.contenido p {
+    color: #666;
+    line-height: 1.6;
+    margin-bottom: 15px;
+}
+
+.contenido img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    border-radius: 8px;
+}
+
+.contenido .fecha {
+    color: #888;
+    font-size: 0.9rem;
+    font-style: italic;
+}

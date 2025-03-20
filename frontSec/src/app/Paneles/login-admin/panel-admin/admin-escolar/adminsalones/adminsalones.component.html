@@ -1,0 +1,112 @@
+<div class="container">
+  <div class="panel">
+    <div class="botonnuevo">
+      <button class="button-7" (click)="crearSalon()">Crear Salón</button>
+    </div>
+    <table mat-table [dataSource]="salones" class="mat-elevation-z8">
+      
+      <!-- IDSalon Column -->
+      <ng-container matColumnDef="IDSalon">
+        <th mat-header-cell *matHeaderCellDef class="col-titulo"> IDSalón </th>
+        <td mat-cell *matCellDef="let salon" class="col-titulo"> {{ salon.IDSalon }} </td>
+      </ng-container>
+
+      <!-- Nombre Column -->
+      <ng-container matColumnDef="SalonNombre">
+        <th mat-header-cell *matHeaderCellDef class="col-fecha"> Nombre de Salón </th>
+        <td mat-cell *matCellDef="let salon" class="col-fecha"> {{ salon.SalonNombre }} </td>
+      </ng-container>
+
+      <!-- Turno Column -->
+      <ng-container matColumnDef="TurnoNombre">
+        <th mat-header-cell *matHeaderCellDef class="col-fecha"> Turno </th>
+        <td mat-cell *matCellDef="let salon" class="col-fecha"> {{ salon.TurnoNombre }} </td>
+      </ng-container>
+
+      <!-- Opciones Column -->
+      <ng-container matColumnDef="Opciones">
+        <th mat-header-cell *matHeaderCellDef class="col-opciones"> Opciones </th>
+        <td mat-cell *matCellDef="let salon" class="col-opciones">
+          <button mat-button class="button-7" role="button" (click)="editarSalon(salon)">Editar</button>
+          <button mat-button class="button-7" role="button" (click)="VerHorario(salon)">Horario</button>
+          <button mat-button class="button-7" role="button" (click)="descargarHorarioPDF(salon.IDSalon)">Ver PDF</button>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+  </div>
+
+  <div class="panel">
+    <form *ngIf="editar" (ngSubmit)="EditarSalon()">
+      <div class="formulario">
+        <h1 class="h1">Editar Salón</h1>
+        <input type="hidden" name="idSalon" [(ngModel)]="salon.IDSalon" required />
+        <label for="idSalon">Código de Salón:</label>
+        <input type="text" id="idSalon" name="idSalon" [(ngModel)]="salon.NuevoIDSalon" required class="input-style"/>
+        <label for="salon">Nombre de Salón:</label>
+        <input type="text" id="salon" name="salon" [(ngModel)]="salon.SalonNombre" required class="input-style"/>
+        <label for="turno">Turno:</label>
+        <select id="turno" name="turno" [(ngModel)]="salon.IDTurno" required>
+          <option *ngFor="let turno of turnos" [value]="turno.IDTurno">{{ turno.Nombre }}</option>
+        </select>
+        <button class="button-7" role="button" type="submit">Guardar</button>
+      </div>
+    </form>
+
+    <form *ngIf="crear" (ngSubmit)="CrearSalon()">
+      <div class="formulario">
+        <h1 class="h1">Crear Salón</h1>
+        <label for="salon">Codigo de Salón:</label>
+        <input type="text" name="idSalon" [(ngModel)]="salon.IDSalon" class="input-style"/>
+        <label for="salon">Nombre de Salón:</label>
+        <input type="text" id="salon" name="salon" [(ngModel)]="salon.SalonNombre" required class="input-style"/>
+        <label for="turno">Turno:</label>
+        <select id="turno" name="turno" [(ngModel)]="salon.IDTurno" required>
+          <option *ngFor="let turno of turnos" [value]="turno.IDTurno">{{ turno.Nombre }}</option>
+        </select>
+
+        <button class="button-7" role="button" type="submit">Guardar</button>
+      </div>
+    </form>
+
+    <div *ngIf="horario" class="horario-box">
+      <h1 class="h1">Horario de salon {{salon.SalonNombre}}</h1>
+      <table mat-table [dataSource]="diasSemana" class="mat-elevation-z8">
+        <ng-container matColumnDef="dia">
+          <th mat-header-cell *matHeaderCellDef> Día </th>
+          <td mat-cell *matCellDef="let dia"> {{ dia }} </td>
+        </ng-container>
+        <ng-container matColumnDef="entrada">
+          <th mat-header-cell *matHeaderCellDef> Hora de Entrada </th>
+          <td mat-cell *matCellDef="let dia">
+            <input type="time" [(ngModel)]="salon.horario[dia].entrada">
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="salida">
+          <th mat-header-cell *matHeaderCellDef> Hora de Salida </th>
+          <td mat-cell *matCellDef="let dia">
+            <input type="time" [(ngModel)]="salon.horario[dia].salida">
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="guardar">
+          <th mat-header-cell *matHeaderCellDef> Guardar </th>
+          <td mat-cell *matCellDef="let dia">
+            <button mat-button class="button-7" role="button" (click)="guardarEntrada(dia, salon.horario[dia].entrada, salon.horario[dia].salida)">Guardar</button>
+          </td>
+        </ng-container>
+        <tr mat-header-row *matHeaderRowDef="displayedColumnsHorario"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumnsHorario;"></tr>
+      </table>
+
+      <form (ngSubmit)="onSubmitPDF()" enctype="multipart/form-data">
+          <div class="formulario">
+              <h1 class="h1">Horario de salon {{salon.SalonNombre}}</h1>
+              <input type="file" (change)="onFileSelected($event)" accept=".pdf" required />
+              <button type="submit">Guardar</button>
+          </div>
+      </form>
+    </div>
+  </div>
+</div>

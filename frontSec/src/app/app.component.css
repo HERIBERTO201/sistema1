@@ -1,0 +1,141 @@
+nav{
+    background-color: brown;
+    display: flex; 
+    flex-direction: row;
+    top: 0px;
+    position: sticky;
+}
+
+
+header {
+    background-color: brown;
+    color: rgb(254, 237, 177);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 17%;
+    box-shadow: 5px 5px 10px rgb(0,0,0,0.3);
+}
+
+.loginpa {
+    background-color: brown;
+    color: rgb(254, 237, 177);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 17%;
+    box-shadow: 5px 5px 10px rgb(0,0,0,0.3);
+    margin-bottom: 1rem;
+}
+
+.loginad {
+    background-color: rgb(67, 67, 198);
+    color: rgb(254, 237, 177);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 17%;
+    box-shadow: 5px 5px 10px rgb(0,0,0,0.3);
+    margin-bottom: 1rem;
+}
+
+.logo{
+    width: 20%;
+}
+
+.titulo{
+    width: 80%;
+}
+
+h1 {
+    letter-spacing: 1vw;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    text-transform: uppercase;
+    text-align: center;
+    font-size: 400%;
+}
+
+.botones{
+    margin-top: 1rem;
+    display: flex;
+    flex-direction: row;
+}
+
+.button-31 {
+  background-color: grey;
+  border-style: none;
+  box-sizing: border-box;
+  color: #fff;
+  cursor: pointer;
+  display: inline-block;
+  font-family: "Farfetch Basis","Helvetica Neue",Arial,sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 1.5;
+  margin: 0;
+  max-width: none;
+  min-height: 44px;
+  min-width: 10px;
+  outline: none;
+  overflow: hidden;
+  padding: 9px 20px 8px;
+  position: relative;
+  text-align: center;
+  text-transform: none;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  width: 100%;
+  text-decoration: none;
+}
+
+.button-31:hover,
+.button-31:focus {
+  opacity: .75;
+}
+
+.margen{
+    margin-top: 1rem;
+    background-color: brown;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-content: center;
+    border-radius: 20px;
+}
+
+.contenido{
+    margin-right: 2rem;
+    margin-left: 2rem;
+    background-color: white;
+    border-radius: 20px;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+}
+
+
+
+.button-32{
+  background-color: grey;
+  border-style: none;
+  box-sizing: border-box;
+  color: #fff;
+  cursor: pointer;
+  font-family: "Farfetch Basis","Helvetica Neue",Arial,sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 1.5;
+  margin: 0;
+  max-width: none;
+  min-height: 44px;
+  min-width: 10px;
+  outline: none;
+  overflow: hidden;
+  padding: 9px 20px 8px;
+  text-transform: none;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  width: 100%;
+  text-decoration: none;
+}

@@ -1,0 +1,100 @@
+<div class="container">
+    <div class="box" id="padres">
+        <button mat-button class="button-7" role="button" (click)="crearPadre()">Crear Familia</button>
+
+
+        <div>
+            <label for="">Filtro de Familia, Madre o Padre:</label>
+            <input type="text" [(ngModel)]="filtro" (input)="aplicarFiltro()" />
+        </div>
+        
+
+        <table mat-table [dataSource]="padresFiltrados" class="mat-elevation-z8">
+
+            <ng-container matColumnDef="IDPadres">
+                <th mat-header-cell *matHeaderCellDef> IDPadres </th>
+                <td mat-cell *matCellDef="let padre"> {{ padre.IDPadres }} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="Madre">
+                <th mat-header-cell *matHeaderCellDef> Madre </th>
+                <td mat-cell *matCellDef="let padre"> {{ padre.Madre }} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="Padre">
+                <th mat-header-cell *matHeaderCellDef> Padre </th>
+                <td mat-cell *matCellDef="let padre"> {{ padre.Padre }} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="Contrasena">
+                <th mat-header-cell *matHeaderCellDef> Contraseña </th>
+                <td mat-cell *matCellDef="let padre"> {{ padre.Contrasena }} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="Familia">
+                <th mat-header-cell *matHeaderCellDef> Familia </th>
+                <td mat-cell *matCellDef="let padre"> {{ padre.Familia }} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="Contacto">
+                <th mat-header-cell *matHeaderCellDef> Contacto </th>
+                <td mat-cell *matCellDef="let padre"> {{ padre.Contacto }} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="Opciones">
+                <th mat-header-cell *matHeaderCellDef> Opciones </th>
+                <td mat-cell *matCellDef="let padre">
+                    <button mat-button class="button-7" role="button" (click)="editarPadre(padre)">Editar</button>
+                </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="['IDPadres', 'Contrasena', 'Madre', 'Padre', 'Familia', 'Contacto', 'Opciones']"></tr>
+            <tr mat-row *matRowDef="let row; columns: ['IDPadres', 'Contrasena', 'Madre', 'Padre', 'Familia', 'Contacto', 'Opciones'];"></tr>
+        </table>
+    </div>
+
+    <div class="box">
+        <form *ngIf="crear" (ngSubmit)="agregarPadre()">
+        <div class="formulario">
+                    <label for="familia">Familia:</label>
+                    <input type="text" id="familia" [(ngModel)]="nuevoPadre.Familia" name="familia" required>
+                    <label for="madre">Madre:</label>
+                    <input type="text" id="madre" [(ngModel)]="nuevoPadre.Madre" name="madre" required>
+
+
+                    <label for="padre">Padre:</label>
+                    <input type="text" id="padre" [(ngModel)]="nuevoPadre.Padre" name="padre" required>
+
+                    <label for="contacto">Contacto:</label>
+                    <input type="text" id="contacto" [(ngModel)]="nuevoPadre.Contacto" name="contacto" required>
+
+                <button type="submit">Agregar Padre</button>
+            </div>
+        </form>
+
+        <form *ngIf="editar" (ngSubmit)="EditarPadre()">
+            <div class="formulario">
+                <label for="familia">Familia:</label>
+                <input type="text" id="familia" [(ngModel)]="nuevoPadre.Familia" name="familia" required>
+
+                <label for="madre">Madre:</label>
+                <input type="text" id="madre" [(ngModel)]="nuevoPadre.Madre" name="madre" required>
+
+                <label for="padre">Padre:</label>
+                <input type="text" id="padre" [(ngModel)]="nuevoPadre.Padre" name="padre" required>
+
+                <label for="contrasena">Contraseña:</label>
+                <input type="text" id="contrasena" [(ngModel)]="nuevoPadre.Contrasena" name="contrasena" required>
+
+                <label for="contacto">Contacto:</label>
+                <input type="text" id="contacto" [(ngModel)]="nuevoPadre.Contacto" name="contacto" required>
+
+                <button type="submit">Actualizar Padre</button>
+            </div>
+        </form>
+
+    </div>
+
+    
+        
+</div>

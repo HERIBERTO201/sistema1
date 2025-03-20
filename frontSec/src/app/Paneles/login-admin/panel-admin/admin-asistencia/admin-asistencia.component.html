@@ -1,0 +1,143 @@
+<div class="botones">
+    <a class="button-31" (click)="verReportes()">
+        Reportes
+    </a>
+    <a class="button-31" (click)="verAsistencia()">
+        Asistencia
+    </a>
+    <a class="button-31" (click)="verJustificacion()">
+        Justificacion
+    </a>
+</div>
+
+<div *ngIf="mostrarReportes">
+    <div style="text-align: center; margin-top: 1rem;">
+        <h1 style="font-size: 2rem; font-weight: bold;">Reportes de Asistencia</h1>
+        <p>Selecciona un salón para ver los reportes de asistencia</p>
+        <select [(ngModel)]="salonSeleccionado">
+            <option value="">Selecciona un salón</option>
+            <option *ngFor="let salon of salones" [value]="salon.IDSalon">
+                {{ salon.SalonNombre }}
+            </option>
+        </select>
+
+        <div *ngIf="salonSeleccionado">
+            <p style="margin-top: 1rem;">Selecciona el tipo de reporte:</p>
+            <select [(ngModel)]="tipoReporte" class="input-style">
+                <option value="">Selecciona el tipo</option>
+                <option value="diario">Reporte Diario</option>
+                <option value="semanal">Reporte Semanal</option>
+            </select>
+
+            <div *ngIf="tipoReporte">
+                <p style="margin-top: 1rem;">Selecciona una fecha:</p>
+                <input type="date" id="fecha" [(ngModel)]="fechaSeleccionada" class="input-style">
+
+                <div *ngIf="fechaSeleccionada">
+                    <button class="button-7" role="button" (click)="mostrarPDF()">
+                        Generar Reporte
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div *ngIf="mostrarAsistencia">
+    <div style="text-align: center; margin-top: 1rem;">
+        <h1 style="font-size: 2rem; font-weight: bold;">Asistencia de los alumnos</h1>
+        <p>Selecciona un salón para ver la asistencia por salon</p>
+        <select [(ngModel)]="salonSeleccionado" (change)="cargarAsistencias()">
+            <option value="">Selecciona un salón</option>
+            <option *ngFor="let salon of salones" [value]="salon.IDSalon">
+                {{ salon.SalonNombre }}
+            </option>
+        </select>
+
+        <div *ngIf="salonSeleccionado">
+            <p style="margin-top: 1rem;">Selecciona una fecha:</p>
+            <input type="date" [(ngModel)]="fechaAsistencia" (change)="cargarAsistencias()" class="input-style">
+        </div>
+
+        <div *ngIf="dataSource.length > 0" class="tabla-container">
+            <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+                <ng-container matColumnDef="matricula">
+                    <th mat-header-cell *matHeaderCellDef>Matrícula</th>
+                    <td mat-cell *matCellDef="let element">{{element.Matricula}}</td>
+                </ng-container>
+
+                <ng-container matColumnDef="nombre">
+                    <th mat-header-cell *matHeaderCellDef>Nombre</th>
+                    <td mat-cell *matCellDef="let element">{{element.Nombre}}</td>
+                </ng-container>
+
+                <ng-container matColumnDef="horaEntrada">
+                    <th mat-header-cell *matHeaderCellDef>Hora de Entrada</th>
+                    <td mat-cell *matCellDef="let element">{{element.HoraEntrada}}</td>
+                </ng-container>
+
+                <ng-container matColumnDef="estado">
+                    <th mat-header-cell *matHeaderCellDef>Estado</th>
+                    <td mat-cell *matCellDef="let element">
+                        <select [(ngModel)]="element.IDEstado" (change)="actualizarEstado(element, element.IDEstado)" class="input-style">
+                            <option *ngFor="let estado of estadosAsistencia" [value]="estado.IDEstado">
+                                {{estado.Estado}}
+                            </option>
+                        </select>
+                    </td>
+                </ng-container>
+
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+            </table>
+        </div>
+    </div>
+</div>
+
+<div *ngIf="mostrarJustificacion">
+    <div style="text-align: center; margin-top: 1rem;">
+        <h1 style="font-size: 2rem; font-weight: bold;">Apelaciones de Asistencia</h1>
+        <p>Selecciona un salón para ver las apelaciones</p>
+        <select [(ngModel)]="salonSeleccionado" (change)="limpiarFecha()">
+            <option value="">Selecciona un salón</option>
+            <option *ngFor="let salon of salones" [value]="salon.IDSalon">
+                {{ salon.SalonNombre }}
+            </option>
+        </select>
+
+        <div *ngIf="salonSeleccionado">
+            <p style="margin-top: 1rem;">Selecciona una fecha:</p>
+            <input type="date" [(ngModel)]="fechaApelacion" (change)="cargarApelaciones()" class="input-style">
+        </div>
+
+        <div *ngIf="apelaciones.length > 0" class="tabla-container">
+            <table mat-table [dataSource]="apelaciones" class="mat-elevation-z8">
+                <ng-container matColumnDef="matricula">
+                    <th mat-header-cell *matHeaderCellDef>Matrícula</th>
+                    <td mat-cell *matCellDef="let element">{{element.Matricula}}</td>
+                </ng-container>
+
+                <ng-container matColumnDef="nombre">
+                    <th mat-header-cell *matHeaderCellDef>Nombre</th>
+                    <td mat-cell *matCellDef="let element">{{element.Nombre}}</td>
+                </ng-container>
+
+                <ng-container matColumnDef="mensaje">
+                    <th mat-header-cell *matHeaderCellDef>Mensaje</th>
+                    <td mat-cell *matCellDef="let element">{{element.Mensaje}}</td>
+                </ng-container>
+
+                <ng-container matColumnDef="documento">
+                    <th mat-header-cell *matHeaderCellDef>Documento</th>
+                    <td mat-cell *matCellDef="let element">
+                        <a *ngIf="element.DireccionImagen" [href]="element.DireccionImagen" target="_blank">Ver documento</a>
+                        <span *ngIf="!element.DireccionImagen">Sin documento</span>
+                    </td>
+                </ng-container>
+
+                <tr mat-header-row *matHeaderRowDef="columnasApelaciones"></tr>
+                <tr mat-row *matRowDef="let row; columns: columnasApelaciones;"></tr>
+            </table>
+        </div>
+    </div>
+</div>

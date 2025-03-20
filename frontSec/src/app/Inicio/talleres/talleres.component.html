@@ -1,0 +1,15 @@
+<div class="margen" @fade>
+    <div class="contenido">
+        <div *ngFor="let taller of talleres" [@fade]>
+            <div class="taller-container">
+                <div class="texto-container">
+                    <h2>{{ taller.Taller }}</h2>
+                    <p>{{ taller.Contenido }}</p>
+                </div>
+                <div class="imagen-container">
+                    <img *ngIf="taller.DireccionImagen" [src]="taller.DireccionImagen" alt="Imagen del taller" />
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

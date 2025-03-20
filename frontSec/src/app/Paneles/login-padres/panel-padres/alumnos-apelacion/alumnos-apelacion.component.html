@@ -1,0 +1,30 @@
+<div class="container">
+  <div class="alumno-section">
+    <label for="alumno-select">Seleccionar Alumno:</label>
+    <select id="alumno-select" [(ngModel)]="alumnoSeleccionado" (change)="mostrarCalendario()">
+      <option value="">Seleccione un alumno</option>
+      <option *ngFor="let alumno of alumnos" [value]="alumno.Matricula">{{ alumno.Nombre }}</option>
+    </select>
+  </div>
+
+  <div class="calendar-section" [class.visible]="mostrarCalendarioSection">
+    <label for="fecha">Seleccionar Fecha:</label>
+    <input type="date" id="fecha" [(ngModel)]="fechaSeleccionada" (change)="mostrarEstado()" />
+  </div>
+
+  <div class="estado-section" [class.visible]="mostrarEstadoSection && estadoAsistencia">
+    <div class="estado-header">
+      <span>Estado de la asistencia:</span>
+      <span class="estado-valor">{{ estadoAsistencia?.EstadoAsistencia }}</span>
+    </div>
+    <div class="mensaje-section" *ngIf="estadoAsistencia?.Asistencia === 4">
+      <label for="mensaje">Mensaje de Apelación:</label>
+      <textarea id="mensaje" [(ngModel)]="mensajeApelacion" placeholder="Escriba su mensaje aquí..."></textarea>
+      <div class="foto-section">
+        <label for="foto">Adjuntar Documento:</label>
+        <input type="file" id="foto" (change)="onFileSelected($event)" accept=".pdf,.jpg,.png,.jpeg" />
+      </div>
+      <button (click)="enviarApelacion()">Enviar Apelación</button>
+    </div>
+  </div>
+</div>

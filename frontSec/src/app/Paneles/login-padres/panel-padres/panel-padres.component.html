@@ -1,0 +1,35 @@
+<div @fade>
+    <header class="inicio">
+        <div class="logo">
+            <img src="/images.png">
+        </div>
+    
+        <div class="titulo">
+            <h1>Portal Padres Secundaria Tecnica 16</h1>
+        </div>
+    </header>
+    
+    <div class="botones">
+        <a class="button-31" routerLink="./padresAlumnos">
+            Alumnos
+        </a>
+        <a class="button-31" routerLink="./padresApelacion">
+            Apelacion
+        </a>
+        <a class="button-31" (click)="cerrarSesion()">
+            Cerrar sesion
+        </a>
+    </div>
+
+
+    <div class="margen" @fade>
+        <div class="contenido">
+            <router-outlet></router-outlet>
+        </div>
+    </div>
+    
+
+</div>
+
+
+

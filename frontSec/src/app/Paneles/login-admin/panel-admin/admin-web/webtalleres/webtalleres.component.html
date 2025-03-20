@@ -1,0 +1,84 @@
+<div class="container">
+    <div class="panel panel-talleres">
+        <div class="header-actions">
+            <button class="btn-primary" (click)="crear = true">
+                <i class="fas fa-plus"></i> Crear Taller
+            </button>
+        </div>
+
+        <div class="table-container">
+            <table mat-table [dataSource]="talleres" class="table-custom">
+                <ng-container matColumnDef="Taller">
+                    <th mat-header-cell *matHeaderCellDef> Taller </th>
+                    <td mat-cell *matCellDef="let taller"> {{ taller.Taller }} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="Contenido">
+                    <th mat-header-cell *matHeaderCellDef> Contenido </th>
+                    <td mat-cell *matCellDef="let taller"> {{ taller.Contenido }} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="Visible">
+                    <th mat-header-cell *matHeaderCellDef> Visible </th>
+                    <td mat-cell *matCellDef="let taller">
+                        <input type="checkbox" [checked]="taller.Visible" (change)="toggleVisibility(taller.IDTaller, taller.Visible)" name="visibleCheckbox">
+                    </td>
+                </ng-container>
+
+                <ng-container matColumnDef="Opciones">
+                    <th mat-header-cell *matHeaderCellDef> Opciones </th>
+                    <td mat-cell *matCellDef="let taller">
+                        <div class="action-buttons">
+                            <button class="btn-icon" (click)="editarTaller(taller)">
+                                <i class="fas fa-edit"></i>
+                            </button>
+                        </div>
+                    </td>
+                </ng-container>
+
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+            </table>
+        </div>
+    </div>
+
+    <div class="panel panel-form">
+        <form *ngIf="edicion" (ngSubmit)="guardarTaller()" class="form-custom">
+            <h2 class="form-title">Editar Taller</h2>
+            <div class="form-grid">
+                <div class="form-group">
+                    <label for="taller">Taller</label>
+                    <input type="text" id="taller" name="taller" [(ngModel)]="taller.Taller" required class="input-custom"/>
+                </div>
+                <div class="form-group">
+                    <label for="contenido">Contenido</label>
+                    <textarea id="contenido" name="contenido" [(ngModel)]="taller.Contenido" required class="input-custom textarea-custom"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="imagen">Imagen</label>
+                    <input type="file" id="imagen" (change)="onFileSelected($event)" class="input-custom"/>
+                </div>
+            </div>
+            <button type="submit" class="btn-primary">Guardar Cambios</button>
+        </form>
+
+        <form *ngIf="crear" (ngSubmit)="crearTaller()" class="form-custom">
+            <h2 class="form-title">Crear Taller</h2>
+            <div class="form-grid">
+                <div class="form-group">
+                    <label for="taller">Taller</label>
+                    <input type="text" id="taller" name="taller" [(ngModel)]="taller.Taller" required class="input-custom"/>
+                </div>
+                <div class="form-group">
+                    <label for="contenido">Contenido</label>
+                    <textarea id="contenido" name="contenido" [(ngModel)]="taller.Contenido" required class="input-custom textarea-custom"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="imagen">Imagen</label>
+                    <input type="file" id="imagen" (change)="onFileSelected($event)" class="input-custom"/>
+                </div>
+            </div>
+            <button type="submit" class="btn-primary">Guardar</button>
+        </form>
+    </div>
+</div>

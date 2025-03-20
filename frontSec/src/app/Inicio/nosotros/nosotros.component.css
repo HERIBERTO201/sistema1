@@ -1,0 +1,18 @@
+.margen{
+    margin-top: 1rem;
+    background-color: brown;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-content: center;
+    border-radius: 20px;
+}
+
+.contenido{
+    margin-right: 2rem;
+    margin-left: 2rem;
+    background-color: white;
+    border-radius: 20px;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+}

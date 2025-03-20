@@ -1,0 +1,84 @@
+<div class="container">
+    <div class="panel panel-anuncios">
+        <div class="header-actions">
+            <button class="btn-primary" (click)="crearanuncio()">
+                <i class="fas fa-plus"></i> Crear Anuncio
+            </button>
+        </div>
+
+        <div class="table-container">
+            <table mat-table [dataSource]="anuncios" class="table-custom">
+                <ng-container matColumnDef="Titulo">
+                    <th mat-header-cell *matHeaderCellDef> Título </th>
+                    <td mat-cell *matCellDef="let anuncio"> {{ anuncio.titulo }} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="Fecha">
+                    <th mat-header-cell *matHeaderCellDef> Fecha </th>
+                    <td mat-cell *matCellDef="let anuncio"> {{ anuncio.fecha }} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="Visible">
+                    <th mat-header-cell *matHeaderCellDef> Visible </th>
+                    <td mat-cell *matCellDef="let anuncio">
+                        <input type="checkbox" [(ngModel)]="anuncio.Visible" (change)="toggleVisible(anuncio)" name="visibleCheckbox">
+                    </td>
+                </ng-container>
+
+                <ng-container matColumnDef="Opciones">
+                    <th mat-header-cell *matHeaderCellDef> Opciones </th>
+                    <td mat-cell *matCellDef="let anuncio">
+                        <div class="action-buttons">
+                            <button class="btn-icon" (click)="editarAnuncio(anuncio)">
+                                <i class="fas fa-edit"></i>
+                            </button>
+                        </div>
+                    </td>
+                </ng-container>
+
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+            </table>
+        </div>
+    </div>
+
+    <div class="panel panel-form">
+        <form *ngIf="edicion" (ngSubmit)="guardarAnuncio()" class="form-custom">
+            <h2 class="form-title">Editar Anuncio</h2>
+            <div class="form-grid">
+                <div class="form-group">
+                    <label for="titulo">Título</label>
+                    <input type="text" id="titulo" name="titulo" [(ngModel)]="anuncio.titulo" required class="input-custom"/>
+                </div>
+                <div class="form-group">
+                    <label for="contenido">Contenido</label>
+                    <textarea id="contenido" name="contenido" [(ngModel)]="anuncio.Contenido" required class="input-custom textarea-custom"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="imagen">Imagen</label>
+                    <input type="file" id="imagen" (change)="onFileSelected($event)" class="input-custom"/>
+                </div>
+            </div>
+            <button type="submit" class="btn-primary">Guardar Cambios</button>
+        </form>
+
+        <form *ngIf="crear" (ngSubmit)="crearAnuncio()" class="form-custom">
+            <h2 class="form-title">Crear Anuncio</h2>
+            <div class="form-grid">
+                <div class="form-group">
+                    <label for="titulo">Título</label>
+                    <input type="text" id="titulo" name="titulo" [(ngModel)]="anuncio.Titulo" required class="input-custom"/>
+                </div>
+                <div class="form-group">
+                    <label for="contenido">Contenido</label>
+                    <textarea id="contenido" name="contenido" [(ngModel)]="anuncio.Contenido" required class="input-custom textarea-custom"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="imagen">Imagen</label>
+                    <input type="file" id="imagen" (change)="onFileSelected($event)" class="input-custom"/>
+                </div>
+            </div>
+            <button type="submit" class="btn-primary">Guardar</button>
+        </form>
+    </div>
+</div>

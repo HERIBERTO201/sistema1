@@ -1,0 +1,123 @@
+/* Contenedor principal de botones */
+.botones {
+    margin: 2rem auto;
+    max-width: 800px;
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    padding: 0 1rem;
+}
+
+/* Estilo para los botones principales */
+.button-31 {
+    background-color: #2c3e50;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    color: #ffffff;
+    cursor: pointer;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 1rem;
+    font-weight: 600;
+    padding: 12px 24px;
+    transition: all 0.3s ease;
+    width: 200px;
+    text-align: center;
+    text-decoration: none;
+}
+
+.button-31:hover {
+    background-color: #34495e;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Estilo para el botón de acción */
+.button-7 {
+    background-color: #3498db;
+    border: none;
+    border-radius: 6px;
+    color: white;
+    cursor: pointer;
+    font-family: 'Segoe UI', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 500;
+    margin-top: 1rem;
+    padding: 10px 20px;
+    transition: all 0.3s ease;
+}
+
+.button-7:hover {
+    background-color: #2980b9;
+    transform: scale(1.05);
+}
+
+/* Estilos para los elementos de formulario */
+select, .input-style {
+    background-color: #f8f9fa;
+    border: 2px solid #e9ecef;
+    border-radius: 6px;
+    font-size: 1rem;
+    margin: 0.5rem 0;
+    padding: 8px 12px;
+    width: 250px;
+    transition: border-color 0.3s ease;
+}
+
+select:focus, .input-style:focus {
+    border-color: #3498db;
+    outline: none;
+}
+
+/* Estilos para el contenedor de reportes */
+div[style*="text-align: center"] {
+    background-color: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    margin: 2rem auto;
+    max-width: 600px;
+    padding: 2rem;
+}
+
+/* Estilos para títulos y textos */
+h1 {
+    color: #2c3e50;
+    margin-bottom: 1.5rem;
+}
+
+p {
+    color: #666;
+    margin: 1rem 0;
+    font-size: 1rem;
+}
+
+.tabla-container {
+    margin-top: 2rem;
+    padding: 1rem;
+    overflow-x: auto;
+}
+
+table {
+    width: 100%;
+    background-color: white;
+}
+
+.mat-mdc-row:nth-child(even) {
+    background-color: #f8f9fa;
+}
+
+.mat-mdc-row:hover {
+    background-color: #e9ecef;
+}
+
+.mat-mdc-header-cell {
+    font-weight: bold;
+    color: #2c3e50;
+}
+
+.mat-mdc-cell {
+    padding: 8px;
+}
+
+mat-form-field {
+    width: 150px;
+}
